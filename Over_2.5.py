@@ -69,45 +69,24 @@ while True:
 games = chrome.find_elements(By.XPATH, '/html/body/div/div/div[@class="container"]/div[@id="matchs"]/div')
 
 for game in games:
-    match_element = game.find_element(By.XPATH, '/html/body/div/div/div[@class="container"]/div[@id="matchs"]/div')
-    text = match_element.text
+    text = game
+    #print(text.text)
 
     regex = re.compile(r"""
-        (?P<time>\d{2}:\d{2})\s*
-        (?P<event>[^\n]+)\s*
-        (?P<teams>[^\n]+)\s*
-        (?P<section1>[^\n]+)\s*
-        (?P<one_value>[\d\s]+€)\s*
-        (?P<one_percentage>\d+%)\s*
-        (?P<one_change>[\d.]+)\s*
-        (?P<sectionX>[^\n]+)\s*
-        (?P<x_value>[\d\s]+€)\s*
-        (?P<x_percentage>\d+%)\s*
-        (?P<x_change>[\d.]+)\s*
-        (?P<section2>[^\n]+)\s*
-        (?P<two_value>[\d\s]+€)\s*
-        (?P<two_percentage>\d+%)\s*
-        (?P<two_change>[\d.]+)
-        """, re.VERBOSE)
-
-    match = regex.search(text) # Até aqui o código funciona normal, puxando os dados.
-
-    if match:
-        data = match.groupdict()
-
-        # Organizing data in a structured format
-        result = f"""
-            {data['time']} | {data['event']} | {data['teams']}
-            {data['section1']}: {data['one_value']} ({data['one_percentage']}) {data['one_change']}
-            {data['sectionX']}: {data['x_value']} ({data['x_percentage']}) {data['x_change']}
-            {data['section2']}: {data['two_value']} ({data['two_percentage']}) {data['two_change']}
-            """
-        print(result)
-    else:
-        print("Dados não encontrados")
-
-chrome.quit()
-
-
-
+            (?P<time>\d{2}:\d{2})\s*
+            (?P<event>[^\n]+)\s*
+            (?P<teams>[^\n]+)\s*
+            (?P<section1>[^\n]+)\s*
+            (?P<one_value>[\d\s]+€)\s*
+            (?P<one_percentage>\d+%)\s*
+            (?P<one_change>[\d.]+)\s*
+            (?P<sectionX>[^\n]+)\s*
+            (?P<x_value>[\d\s]+€)\s*
+            (?P<x_percentage>\d+%)\s*
+            (?P<x_change>[\d.]+)\s*
+            (?P<section2>[^\n]+)\s*
+            (?P<two_value>[\d\s]+€)\s*
+            (?P<two_percentage>\d+%)\s*
+            (?P<two_change>[\d.]+)
+            """, re.VERBOSE)
 
