@@ -69,24 +69,5 @@ while True:
 games = chrome.find_elements(By.XPATH, '/html/body/div/div/div[@class="container"]/div[@id="matchs"]/div')
 
 for game in games:
-    text = game
-    #print(text.text)
-
-    regex = re.compile(r"""
-            (?P<time>\d{2}:\d{2})\s*
-            (?P<event>[^\n]+)\s*
-            (?P<teams>[^\n]+)\s*
-            (?P<section1>[^\n]+)\s*
-            (?P<one_value>[\d\s]+€)\s*
-            (?P<one_percentage>\d+%)\s*
-            (?P<one_change>[\d.]+)\s*
-            (?P<sectionX>[^\n]+)\s*
-            (?P<x_value>[\d\s]+€)\s*
-            (?P<x_percentage>\d+%)\s*
-            (?P<x_change>[\d.]+)\s*
-            (?P<section2>[^\n]+)\s*
-            (?P<two_value>[\d\s]+€)\s*
-            (?P<two_percentage>\d+%)\s*
-            (?P<two_change>[\d.]+)
-            """, re.VERBOSE)
-
+    text = game.text
+    print(text)
