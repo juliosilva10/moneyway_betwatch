@@ -10,8 +10,8 @@ from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-
 from webdriver_manager.chrome import ChromeDriverManager
+from tabulate import tabulate
 
 warnings.filterwarnings('ignore')
 options = webdriver.ChromeOptions()
@@ -88,15 +88,30 @@ for game in games:
 
     match = regex.search(text)
 
-    data = match.groupdict()
+    if match:
+        data = match.groupdict()
 
-    result = f"""
-    {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
-    {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
-    """
-    time_event = data['time'], data['event']
-    #print(list)
+        result = f"""
+        {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
+        {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
+        """
+        #tabela = (data['time'], data['event'])
 
-    teams = data['teams']
-    print(time_event)
-    print(teams)
+        print(result)
+
+        #print(tabulate(tabela, headers='keys', tablefmt='pretty'))
+
+    else:
+        print("Dados não encontrados!")
+
+chrome.quit()
+
+
+
+
+
+
+    #'Time': result['time'],
+    #'Event,' 'Teams', 'Under', 'Money', '%', 'Odd']
+
+    #print(tabulate(columns, headers='keys', tablefmt="pretty"))
