@@ -70,4 +70,33 @@ games = chrome.find_elements(By.XPATH, '/html/body/div/div/div[@class="container
 
 for game in games:
     text = game.text
-    print(text)
+    #r1 = re.split(r'\s', text) # Separa as strings
+    #r1 = re.split(r'\d+', text) # Remove os dígitos
+    regex = re.compile(r"""
+    (?P<time>\d{2}:\d{2}\s*)
+    (?P<event>[^\n]+\s*)
+    (?P<teams>[^\n]+\s*)
+    (?P<under>[^\n]+\s*)
+    (?P<under_money>[\d\s]+€\s*)
+    (?P<under_percent>\d+%\s*)
+    (?P<under_odd>[^\n]+\s*)
+    (?P<over>[^\n]+\s*)
+    (?P<over_money>[\d\s]+€\s*)
+    (?P<over_percent>[\d\s]+%\s*)
+    (?P<over_odd>[\d\s]+\s*)
+    """, re.VERBOSE)
+
+    match = regex.search(text)
+
+    data = match.groupdict()
+
+    result = f"""
+    {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
+    {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
+    """
+    time_event = data['time'], data['event']
+    #print(list)
+
+    teams = data['teams']
+    print(time_event)
+    print(teams)
