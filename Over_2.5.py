@@ -97,7 +97,7 @@ for game in games:
         """
         #tabela = (data['time'], data['event'])
 
-        print(result)
+        print(data['time'], data['event'], data['teams'], data['under'], data['under_money'], data['under_percent'])
 
         #print(tabulate(tabela, headers='keys', tablefmt='pretty'))
 
