@@ -95,14 +95,36 @@ for game in games:
         {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
         {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
         """
-        #tabela = (data['time'], data['event'])
 
-        print(data['time'], data['event'], data['teams'], data['under'], data['under_money'], data['under_percent'])
+        lista_under = [data['under'], data['under_money'], data['under_percent'], data['under_odd']] # Criando uma lista para exibição em linha.
+        lista_under_string = str(lista_under) # Convertendo em String para aplicar replace.
 
-        #print(tabulate(tabela, headers='keys', tablefmt='pretty'))
+        lista_under_final = lista_under_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",", "  ").replace("]", "") # Tirando alguns caracteres
+
+        lista_over = [data['over'], data['over_money'], data['over_percent'], data['over_odd']]  # Criando uma lista para exibição em linha.
+        lista_over_string = str(lista_over)  # Convertendo em String para aplicar replace.
+
+        lista_over_final = lista_over_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",","  ").replace("]", "") # Tirando alguns caracteres
+
+        #print(lista_over_final)
+
+        # tabela = (data['time'], data['event'])
+        # print(tabulate(tabela, headers='keys', tablefmt='pretty'))
+
+        print(data['time'], data['event'], data['teams'], lista_under_final, '\n', lista_over_final, '\n')
+
+        #dados = (f"{data['time']}"
+            #f"{data['event']}"
+            #f"{data['teams']}"
+            #f"{data['under'], data['under_money'], data['under_percent'], data['under_odd']}\n"
+        #)
+
+        #print(dados.replace("'", " "))
+
+
 
     else:
-        print("Dados não encontrados!")
+        print("Dados não encontrados!", '\n')
 
 chrome.quit()
 
