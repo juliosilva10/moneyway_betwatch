@@ -72,8 +72,11 @@ for game in games:
     text = game.text
     #r1 = re.split(r'\s', text) # Separa as strings
     #r1 = re.split(r'\d+', text) # Remove os dígitos
+
+
     regex = re.compile(r"""
-    (?P<time>\d{2}:\d{2}\s*)
+    (?P<minutes>[^\n]+\s*) 
+    (?P<time>[^\n]+\s*)
     (?P<event>[^\n]+\s*)
     (?P<teams>[^\n]+\s*)
     (?P<under>[^\n]+\s*)
@@ -84,7 +87,8 @@ for game in games:
     (?P<over_money>[\d\s]+€\s*)
     (?P<over_percent>[\d\s]+%\s*)
     (?P<over_odd>[\d\s]+\s*)
-    """, re.VERBOSE)
+    """, re.VERBOSE) # (?P < time > \d{2}:\d{2}\s *) Primeira linha do regex no lugar de (?P<minutes>[^\n]+\s*)
+
 
     match = regex.search(text)
 
@@ -92,7 +96,7 @@ for game in games:
         data = match.groupdict()
 
         result = f"""
-        {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
+        {data['minutes']} {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
         {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
         """
 
@@ -112,6 +116,9 @@ for game in games:
         # print(tabulate(tabela, headers='keys', tablefmt='pretty'))
 
         print(data['time'], data['event'], data['teams'], lista_under_final, '\n', lista_over_final, '\n')
+
+
+
 
         #dados = (f"{data['time']}"
             #f"{data['event']}"
