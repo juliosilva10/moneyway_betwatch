@@ -72,16 +72,17 @@ for game in games:
     text = game.text
     #r1 = re.split(r'\s', text) # Separa as strings
     #r1 = re.split(r'\d+', text) # Remove os dígitos
+    #print(text)
 
 
     regex = re.compile(r"""
-    (?P<minutes>[^\n]+\s*) 
+    (?P<score>[^\n]+\s*) 
     (?P<time>[^\n]+\s*)
     (?P<event>[^\n]+\s*)
     (?P<teams>[^\n]+\s*)
     (?P<under>[^\n]+\s*)
     (?P<under_money>[\d\s]+€\s*)
-    (?P<under_percent>\d+%\s*)
+    (?P<under_percent>[\d\s]+%\s*)
     (?P<under_odd>[^\n]+\s*)
     (?P<over>[^\n]+\s*)
     (?P<over_money>[\d\s]+€\s*)
@@ -96,26 +97,25 @@ for game in games:
         data = match.groupdict()
 
         result = f"""
-        {data['minutes']} {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
+        {data['score']} {data['time']} {data['event']} {data['teams']} {data['under']} {data['under_money']} {data['under_percent']} {data['under_odd']}
         {data['over']} {data['over_money']} {data['over_percent']} {data['over_odd']}
         """
 
         lista_under = [data['under'], data['under_money'], data['under_percent'], data['under_odd']] # Criando uma lista para exibição em linha.
         lista_under_string = str(lista_under) # Convertendo em String para aplicar replace.
-
-        lista_under_final = lista_under_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",", "  ").replace("]", "") # Tirando alguns caracteres
+        lista_under_final = lista_under_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",", "   ").replace("]", "") # Tirando alguns caracteres
 
         lista_over = [data['over'], data['over_money'], data['over_percent'], data['over_odd']]  # Criando uma lista para exibição em linha.
         lista_over_string = str(lista_over)  # Convertendo em String para aplicar replace.
-
-        lista_over_final = lista_over_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",","  ").replace("]", "") # Tirando alguns caracteres
+        lista_over_final = lista_over_string.replace("[", "").replace("'", "").replace("\\n", "").replace(",","   ").replace("]", "") # Tirando alguns caracteres
 
         #print(lista_over_final)
 
         # tabela = (data['time'], data['event'])
         # print(tabulate(tabela, headers='keys', tablefmt='pretty'))
+        #print(lista_under)
 
-        print(data['time'], data['event'], data['teams'], lista_under_final, '\n', lista_over_final, '\n')
+        print(data['score'], data['time'], data['event'], data['teams'], lista_under_final, '\n', lista_over_final, '\n')
 
 
 
